@@ -1,0 +1,22 @@
+.produits-sans-code-container{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+    background-color: antiquewhite;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+
+.add-to-cart {
+    padding: 10px 20px;
+    background-color: rgb(28, 143, 28);
+    color: white;
+    border-radius: 25px;
+    margin-top: 20px;
+    font-size: 15px;
+}

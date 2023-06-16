@@ -1,0 +1,77 @@
+nav {
+  background-color: #26292b;
+  height: 100vh;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  background-image: url(../Icons/wave-haikei.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: 150px ;
+
+}
+nav img {
+    width: 30%;
+}
+
+
+nav ul {
+    width: 65%;
+    list-style: none;
+    padding: 20px;   
+    margin-bottom: 15vh;
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 10px 10px 10px 30px;
+    transition: 0.5s;
+    margin-bottom: 10px;
+}
+
+
+nav ul li:hover {
+  background-color: #5f7adb;
+  transition: 0.5s;
+}
+
+li.active {
+    background-color: #5f7adb;
+  }
+
+
+nav ul li img{
+    width: 1.8vw;
+    margin-right: 10px;
+}
+ 
+a{
+    font-size: 1.5vw;
+    color: white !important;
+    text-decoration: none;
+}
+
+.navbar--user--info {  
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+}
+
+.navbar--user--info h3 {
+    font-size: 1vw;
+
+}
+
+.navbar--user--info p {
+    font-size: 1vw;
+}
+

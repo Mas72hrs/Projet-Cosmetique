@@ -1,0 +1,92 @@
+.vendreList {
+    width: 100%;
+    height: 70vh;
+    background-color: rgba(128, 128, 128, 0.276);
+    border-radius: 20px;
+    backdrop-filter: blur(2px);
+
+}
+
+.centre-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.vendreList h1 {
+    color: grey;
+  
+}
+
+.sell-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 40px;
+}
+
+.vendre-btn {
+    color: white;
+    border-radius: 25px;
+    background-color:  #5f7adb;
+    width: 170px;
+    height: 55px;
+    font-size: 18px;
+    padding: 0 10px;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+.vendre-btn:hover {
+    background-color: #3e5fd9;
+    transition: 0.3s;
+}
+
+
+.big-sell-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.products-without-barcode-list {
+    height: 100vh;
+    width: 500px;
+    background-color: #26292b;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    display: none;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+}
+
+.products-without-barcode-list.slide-in {
+    /* Slide-in position */
+    transform: translateX(0);
+    display: flex;
+  }
+
+
+.open-product-list {
+    align-self: flex-end;
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color:  #5f7adb;
+    padding: 0 10px;
+    transition: 0.3s;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.open-product-list img {
+    transition: 0.3s;
+    width: 100%;
+}

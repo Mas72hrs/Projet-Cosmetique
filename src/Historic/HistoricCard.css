@@ -1,0 +1,34 @@
+.historic--card--container {
+   width: 50%;
+   background-color: rgb(193, 189, 196);
+   border-radius: 30px;
+   height: 60px;
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   box-shadow: 11px 14px 10px -3px rgba(0, 0, 0, 0.25);
+   padding: 10px 0;
+}
+
+.historic--card--container div {
+   text-align: center;
+}
+
+.historic--card--container div h1 {
+   font-size: 1.3vw;
+}
+.historic--card--container .voir-ventes-btn img {
+   transition: 0.3s;
+   width: 100%;
+}
+.historic--card--container .voir-ventes-btn {
+   width: 40px;
+   border-radius: 50%;
+   padding: 5px;
+}
+
+button {
+   outline: none;
+   border: none;
+   cursor: pointer;
+}

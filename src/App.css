@@ -1,0 +1,20 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: outfit;
+    src: url(./Fonts/Outfit-VariableFont_wght.ttf);
+  }
+  .outfit {
+    font-family: outfit;
+  }
+  
+
+  .App {
+    background-image: url(./Icons/Sprinkle.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
