@@ -10,11 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    marque: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true,
-    },
+
     quantite: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -23,11 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         min: 0,
       },
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      defaultValue: "rien",
-    },
+
     prix_A: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
@@ -60,6 +52,14 @@ module.exports = (sequelize, DataTypes) => {
   Produit.associate = function (models) {
     Produit.belongsTo(models.Categorie);
   };
+
+  // Produit.sync({ alert: true })
+  //   .then(() => {
+  //     console.log("table synced");
+  //   })
+  //   .catch(() => {
+  //     console.log("error syncing ");
+  //   });
 
   return Produit;
 };

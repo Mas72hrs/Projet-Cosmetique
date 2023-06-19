@@ -28,6 +28,7 @@ router.get("/byId/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const {
+      codeBar,
       nomProduit,
       marque,
       quantite,
@@ -59,6 +60,7 @@ router.post("/", async (req, res) => {
 
     // Création de l'employé
     const produit = await Produit.create({
+      codeBar: codeBar,
       nomProduit: nomProduit,
       marque: marque,
       quantite: quantite,

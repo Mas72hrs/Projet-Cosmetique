@@ -6,9 +6,18 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
     },
   });
+
   Categorie.associate = function (models) {
-    Categorie.hasMany(models.Produit); // add the association to the Departement model
+    Categorie.hasMany(models.Produit, { onDelete: "CASCADE" }); // add the association to the Departement model
   };
+
+  // Categorie.sync({ force: true })
+  //   .then(() => {
+  //     console.log("table synced");
+  //   })
+  //   .catch(() => {
+  //     console.log("error syncing ");
+  //   });
 
   return Categorie;
 };
