@@ -4,6 +4,7 @@ import "./Sell.css"
 import {ProductsData} from "../Products/ProductsData.js"
 import ProductWithoutCode from './ProductWithoutCode.js'
 import arrow from "../Icons/icons8-arrow-100.png"
+import ProductToSellCard from './ProductToSellCard.js'
 
 export default function Sell() {
 
@@ -18,6 +19,20 @@ export default function Sell() {
     />
   )}
   )
+
+
+  const ProductsToSellList = ProductsData.map((produit) =>
+  {return (
+    <ProductToSellCard
+    nom = {produit.nom}   
+    prixVendue = {produit.prixVendue}
+    />
+  )}
+  )
+
+
+   
+
   return (
     <div className='big-sell-container'>
 
@@ -26,8 +41,9 @@ export default function Sell() {
 
         <Header titre="Vendre"/>
         <button className='open-product-list' onClick={() => setListOpen(!isListOpen)} > <img src={arrow} alt='arrow' style={{ transform: isListOpen ? 'rotate(180deg)' : 'rotate(0)' }} />  </button>
-        <div className='vendreList centre-text'>
-          <h1>Pas de Produit a Vendre</h1>
+        <div className='vendreList '>
+          {ProductsToSellList}
+          {/*<h1>Pas de Produit a Vendre</h1>*/}
         </div>
 
         <button className="vendre-btn">

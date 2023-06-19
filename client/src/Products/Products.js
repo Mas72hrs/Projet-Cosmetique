@@ -6,8 +6,13 @@ import "./Products.css";
 import { ProductsData } from "./ProductsData.js";
 import axios from "axios";
 
+
 export default function Products() {
   const [products, setProducts] = useState([]);
+
+
+
+
   useEffect(() => {
     axios.get(`http://localhost:3001/produit`).then((response) => {
       setProducts(response.data);
@@ -29,10 +34,12 @@ export default function Products() {
   });
 
   return (
-    <div>
+    <div style={{marginRight:"40px"}}>
       <Header titre="Produits" />
       <SearchBar />
       <div className="products-container-grid">{ProductsList}</div>
+
+      
     </div>
   );
 }

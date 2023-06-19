@@ -1,14 +1,14 @@
 .produits-sans-code-container{
     width: 80%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     padding: 20px 0;
     background-color: antiquewhite;
     margin-bottom: 20px;
     border-radius: 15px;
-    text-align: center;
+    text-align: start;
 }
 
 
@@ -17,6 +17,6 @@
     background-color: rgb(28, 143, 28);
     color: white;
     border-radius: 25px;
-    margin-top: 20px;
     font-size: 15px;
+    margin: 15px 0 0 10px;
 }

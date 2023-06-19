@@ -1,0 +1,85 @@
+.add-product-form {
+    background-color: aqua;
+    height: 100%;
+}
+
+
+/* AddProductForm.css */
+
+/* AddProductForm.css */
+
+.add-product-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+  }
+  
+  .add-product-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .add-product-form input,
+  .add-product-form textarea,
+  .add-product-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .add-product-form textarea {
+    resize: vertical;
+  }
+  
+  .add-product-form button[type="submit"],
+  .add-product-form button[type="button"] {
+    display: inline-block;
+    padding: 10px 16px;
+    margin-top: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .add-product-form button[type="submit"]:hover,
+  .add-product-form button[type="button"]:hover {
+    background-color: #45a049;
+  }
+  
+  .add-product-form button[type="submit"] {
+    margin-right: 10px;
+  }
+  
+  .add-product-form button[type="button"] {
+    background-color: #ccc;
+  }
+  
+  .add-product-form button[type="button"]:hover {
+    background-color: #999;
+  }
+  
+  .add-product-form select {
+    appearance: none;
+    background-color: #fff;
+  }
+  
+  .add-product-form select:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+  }
+  
+  .add-product-form select option {
+    color: #555;
+  }
+  
+  

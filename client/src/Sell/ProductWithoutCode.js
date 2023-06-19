@@ -8,7 +8,6 @@ export default function ProductWithoutCode(props) {
        
         <h1>{props.nom}</h1>
         <p>Quantité : {props.quantite}</p>
-        <p>Prix : {props.prixVendue}</p>
 
         </div>
 
