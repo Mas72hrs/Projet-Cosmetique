@@ -7,7 +7,7 @@ import OneProductWindow from "../Products/OneProductWindow";
 import Historic from "../Historic/Historic";
 import Analytics from "../Analytics/Analytics";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import UsersWindow from "../Users/UsersWindow";
 
 export default function InPage() {
   const userData = JSON.parse(localStorage.getItem("accessToken"));
@@ -37,6 +37,7 @@ export default function InPage() {
           <Route path="/produits" element={<Products />} />
           <Route path="/historique" element={<Historic />} />
           <Route path="/analytics" element={<Analytics />} />
+          <Route path="/utilisateurs" element={<UsersWindow />} />
           <Route path="/produits/:productName" element={<OneProductWindow />} />
         </Routes>
       </div>

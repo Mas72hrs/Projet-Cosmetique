@@ -3,12 +3,10 @@ import Header from "../Header/Header.js"
 import "./Sell.css"
 import {ProductsData} from "../Products/ProductsData.js"
 import ProductWithoutCode from './ProductWithoutCode.js'
-import arrow from "../Icons/icons8-arrow-100.png"
 import ProductToSellCard from './ProductToSellCard.js'
 
 export default function Sell() {
 
-  const [isListOpen, setListOpen] = useState(false);
 
   const ProductsList = ProductsData.map((produit) =>
   {return (
@@ -40,7 +38,6 @@ export default function Sell() {
       <div className='sell-container'>
 
         <Header titre="Vendre"/>
-        <button className='open-product-list' onClick={() => setListOpen(!isListOpen)} > <img src={arrow} alt='arrow' style={{ transform: isListOpen ? 'rotate(180deg)' : 'rotate(0)' }} />  </button>
         <div className='vendreList '>
           {ProductsToSellList}
           {/*<h1>Pas de Produit a Vendre</h1>*/}
@@ -53,7 +50,7 @@ export default function Sell() {
       </div>
 
 
-      <div className={`products-without-barcode-list ${isListOpen ? 'slide-in' : ''}`}>
+      <div className="products-without-barcode-list" >
         <h1 style={{textAlign:"center",margin:"20px 0",color:"white"}}>Produits Sans Code Barre</h1>
        {ProductsList}
       </div>

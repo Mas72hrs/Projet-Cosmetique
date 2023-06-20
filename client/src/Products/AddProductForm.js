@@ -92,9 +92,13 @@ export default function AddProductForm() {
   };
 
   return (
-    <form className="add-product-form" onSubmit={handleSubmit}>
+
+    
+    <form className="add-product-form outfit" onSubmit={handleSubmit}>
+      <h1>Ajout de Produit </h1>
+
       <label>
-        Code Bar:
+        Code Bar :
         <input
           type="numbrer"
           name="codeBar"
@@ -113,7 +117,7 @@ export default function AddProductForm() {
       </label>
 
       <label>
-        Quantité:
+        Quantité :
         <input
           type="number"
           name="quantite"
@@ -123,7 +127,7 @@ export default function AddProductForm() {
       </label>
 
       <label>
-        Prix Achat:
+        Prix Achat :
         <input
           type="number"
           name="prix_A"
@@ -143,7 +147,7 @@ export default function AddProductForm() {
       </label>
 
       <label>
-        Catégorie:
+        Catégorie :
         <select
           name="CategorieId"
           value={selectedCategorieId}
@@ -161,7 +165,7 @@ export default function AddProductForm() {
       </label>
 
       <label>
-        Date d'Expiration:
+        Date d'Expiration :
         <input
           type="date"
           name="DExp"
@@ -174,7 +178,7 @@ export default function AddProductForm() {
         Ajouter
       </button>
       <button type="button" onClick={handleCancel}>
-        Cancel
+        Annuler
       </button>
     </form>
   );

@@ -1,0 +1,108 @@
+.user-card-container {
+    width: 80%;
+    background-color: antiquewhite;
+    border-radius: 25px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 15px;
+    padding: 10px 0;
+}
+
+
+
+.user-info h1 {
+ font-size: 1.2vw;
+}
+
+.user-info p {
+    font-size: 1vw;
+}
+
+
+
+/***** BUTTONS *******/
+
+.UserCard-buttons button{ 
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.UserCard-buttons {
+    display: flex;
+}
+.UserCard-buttons button img {
+    width: 50%;
+}
+   
+
+.UserCard-buttons .modifier-produit-btn {
+    background-color: #393646;
+
+}
+
+.UserCard-buttons .voir-plus-produit-btn {
+    background-color: #C07F00;
+    
+}
+
+.UserCard .supprimer-produit-btn {
+    background-color: #B70404;
+    display: flex;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+}
+    
+.UserCard .supprimer-produit-btn img {
+    width: 50%;
+}
+
+
+
+/*** DELETE USER MODAL ***/
+
+.delete-user-moadal {
+    border: 0px;
+    outline: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    padding: 20px 50px;
+    border-radius: 10px;
+    width: 20%;
+    height: auto;
+    text-align: center;
+}
+
+
+.delete-user-btns button {
+    margin-left: 5px;
+    padding: 10px 30px;
+    font-size: 18px;
+    border-radius: 20px;
+    color: antiquewhite;
+
+}
+
+.delete-user-btns {
+    margin-top: 20px;
+}
+
+
+.delete-user-btns button:last-child {
+    background-color: #B70404 !important;
+}
+
+.delete-user-btns button:first-child {
+    background-color: rgb(28, 130, 28);
+}

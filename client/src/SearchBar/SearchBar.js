@@ -9,9 +9,6 @@ export default function SearchBar() {
   const [isForm, setisForm] = useState(false);
 
 
-
-
-
   return (
     <div className="Header--container">
       <div className="Header--Search--container">

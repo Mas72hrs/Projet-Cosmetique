@@ -4,6 +4,7 @@ import sell from "../Icons/icons8-sell-96.png";
 import product from "../Icons/icons8-product-96.png";
 import historical from "../Icons/icons8-historical-64.png";
 import analytics from "../Icons/icons8-analytics-96.png";
+import user from "../Icons/icons8-user-96.png";
 import logo from "../Icons/logo.png";
 import { Link, useLocation } from "react-router-dom";
 
@@ -48,6 +49,16 @@ export default function Navbar(props) {
           >
             <img src={analytics} alt="logo-Analytics" />
             <a>Analytics</a>
+          </li>
+        </Link>
+        <Link to="/inpage/utilisateurs">
+          <li
+            className={
+              location.pathname === "/inpage/utilisateurs" ? "active" : ""
+            }
+          >
+            <img src={user} alt="logo-utilisateurs" />
+            <a>Utilisateurs</a>
           </li>
         </Link>
       </ul>

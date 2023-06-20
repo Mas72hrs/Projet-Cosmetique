@@ -1,0 +1,113 @@
+.liste-users {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    height: 70vh;
+}
+
+.users-window-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+
+
+
+
+/**** add user *****/
+
+.add-user-modal {
+    border: 0px;
+    outline: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    padding: 20px 50px;
+    border-radius: 10px;
+    width: 20%;
+    height: auto;
+    text-align: center;
+}
+
+
+
+.ReactModal__Overlay {
+    background-color: #000000ac !important;
+}
+
+.add-user-form {
+    margin-top: 30px;
+
+}
+
+.add-user-form label {
+   font-size: 20px;
+}
+
+.add-user-form .row {
+    width: 100%;
+    display: flex;
+    margin-bottom: 15px;
+    
+}
+
+.add-user-form .one-input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.add-user-form .one-input input  {
+    width: 100%;
+    height: 30px;
+    border: 1px solid black;
+    font-size: 18px;
+    text-align: center;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  display: none;
+}
+
+.add-user-form .one-input select {
+    height: 35px;
+    border: 1px solid black;
+    font-size: 18px;
+    text-align: center;
+}
+
+.add-user-btns {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.add-user-btns button{
+    width: 30%;
+    height: 35px;
+    font-size: 18px;
+    color: white;
+    border-radius: 25px;
+}
+
+
+
+
+.add-user-btns button[type="submit"] {
+    background-color: rgb(28, 130, 28);
+    margin-right: 5px;
+}
+
+.add-user-btns button[type="reset"] {
+    background-color: rgb(226, 26, 26);
+}
