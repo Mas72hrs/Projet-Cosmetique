@@ -88,4 +88,49 @@ router.get("/auth", validateToken, (req, res) => {
   res.json(req.user);
 });
 
+router.patch("/byIdInfos/:idInfo", async (req, res) => {
+  try {
+    const id = req.params.idInfo;
+    const { password, telephone, role } = req.body;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("password hashed");
+
+    await User.update(
+      {
+        password: hashedPassword,
+        telephone: telephone,
+        role: role,
+      },
+      { where: { id: id } }
+    );
+
+    return res.json(`Informations modifiées pour user.id=${id}`);
+  } catch (error) {
+    console.error(
+      "Error lors de la modification des informations utilisateur:",
+      error
+    );
+    return res.status(500).json("Error modifying user information.");
+  }
+});
+
+router.delete("/byId/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deletedUser = await User.destroy({
+      where: { id: id },
+    });
+
+    if (deletedUser === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting User:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;
