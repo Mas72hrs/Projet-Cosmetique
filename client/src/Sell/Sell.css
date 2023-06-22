@@ -11,7 +11,7 @@
     backdrop-filter: blur(2px);
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 40px;
+    gap: 25px;
     grid-auto-rows: auto;
     overflow: auto;
     padding: 20px;
@@ -41,10 +41,10 @@
     color: white;
     border-radius: 25px;
     background-color:  #5f7adb;
-    width: 170px;
+    width: fit-content;
     height: 55px;
     font-size: 18px;
-    padding: 0 10px;
+    padding: 5px 30px;
     transition: 0.3s;
     margin-top: 15px;
 }
@@ -68,4 +68,69 @@
 
 }
 
+/*****   Search bar *******/
 
+
+.product--Search--container {
+    border-radius: 25px;
+    background-color: #D9D9D9;
+    width: 60%;
+    height: 50px;
+    padding: 5px 30px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.product--Search--container input {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    margin-left: 10px;
+    font-size: 18px;
+    width: 100%;
+}
+
+
+.add-code {
+    background-color: #ffffff;
+    width: fit-content;
+    padding-right: 10px;
+    height: 60px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.add-code img {
+    width: 25px;
+}
+
+
+.add-code button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background-color: #26292b;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+
+
+.add-code input {
+    height: 70%;
+    font-weight: bold;
+    font-family: outfit;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    padding-left: 15px;
+}
