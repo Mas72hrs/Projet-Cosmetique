@@ -1,84 +1,121 @@
-import React, { useState } from 'react'
-import Header from "../Header/Header.js"
-import "./Sell.css"
-import {ProductsData} from "../Products/ProductsData.js"
-import ProductWithoutCode from './ProductWithoutCode.js'
-import ProductToSellCard from './ProductToSellCard.js'
+import React, { useState, useEffect } from "react";
+import Header from "../Header/Header.js";
+import "./Sell.css";
+import { ProductsData } from "../Products/ProductsData.js";
+import ProductWithoutCode from "./ProductWithoutCode.js";
+import ProductToSellCard from "./ProductToSellCard.js";
 import search from "../Icons/search-icon.png";
-import done from "../Icons/done.png"
+import done from "../Icons/done.png";
+import axios from "axios";
 
 export default function Sell() {
+  const [productsWithoutCode, setProductsWithoutCode] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
+  useEffect(() => {
+    axios.get("http://localhost:3001/produit/null-codebar").then((response) => {
+      setProductsWithoutCode(response.data);
+    });
+  }, []);
 
-  const ProductsList = ProductsData.map((produit) =>
-  {return (
-    <ProductWithoutCode
-    nom = {produit.nom}
-    quantite = {produit.quantite}
-    prixVendue = {produit.prixVendue}
-    />
-  )}
-  )
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
+  const fetchProducts = async () => {
+    await axios.get("http://localhost:3001/cart").then((response) => {
+      setCartItems(response.data);
+    });
+  };
 
-  const ProductsToSellList = ProductsData.map((produit) =>
-  {return (
-    <ProductToSellCard
-    nom = {produit.nom}   
-    prixVendue = {produit.prixVendue}
-    />
-  )}
-  )
+  const deleteCartItems = (productId) => {
+    axios
+      .delete(`http://localhost:3001/cart/byId/${productId}`)
+      .then(() => {
+        // After deleting the product, fetch the updated list of products
+        fetchProducts();
+      })
+      .catch((error) => {
+        console.log("Error deleting product from the cart :", error);
+      });
+  };
 
+  const handleSearchInputChange = (event) => {
+    setSearchInput(event.target.value);
+  };
 
-   
+  const filteredProductsList = productsWithoutCode.filter(
+    (produit) =>
+      searchInput === "" ||
+      (produit.nomProduit &&
+        produit.nomProduit.toLowerCase().includes(searchInput.toLowerCase()))
+  );
+
+  const ProductsList = filteredProductsList.map((produit) => {
+    return (
+      <ProductWithoutCode
+        key={produit.id}
+        idProduit={produit.id}
+        nom={produit.nomProduit}
+        quantite={produit.quantite}
+        prixVendue={produit.prix_V}
+        onFetch={fetchProducts}
+      />
+    );
+  });
+
+  const ProductsToSellList = cartItems.map((produit) => {
+    return (
+      <ProductToSellCard
+        key={produit.id}
+        idItem={produit.id}
+        nom={produit.nomProduit}
+        Quantity={produit.Quantity}
+        total={produit.totalPrice}
+        prixVendue={produit.itemPrice}
+        ondelete={deleteCartItems}
+        onFetch={fetchProducts}
+      />
+    );
+  });
 
   return (
-    <div className='big-sell-container'>
+    <div className="big-sell-container">
+      <div className="sell-container">
+        <Header titre="Vendre" />
 
-
-      <div className='sell-container'>
-
-        <Header titre="Vendre"/>
-
-        
-        <div className='vendreList '>
-          <div className='add-code'>
-            <input 
-            placeholder='Entrer Code Barre ...'
-            type='number'
-            />
+        <div className="vendreList ">
+          <div className="add-code">
+            <input placeholder="Entrer Code Barre ..." type="number" />
             <button>
-              <img src={done} alt='done' />
+              <img src={done} alt="done" />
             </button>
-
           </div>
           {ProductsToSellList}
           {/*<h1>Pas de Produit a Vendre</h1>*/}
         </div>
 
-        <button className="vendre-btn">
-          Vendre
-        </button>
-        
+        <button className="vendre-btn">Vendre</button>
       </div>
 
-
-      <div className="products-without-barcode-list" >
-        <h1 style={{textAlign:"center",margin:"20px 0",color:"white"}}>Produits Sans Code Barre</h1>
+      <div className="products-without-barcode-list">
+        <h1 style={{ textAlign: "center", margin: "20px 0", color: "white" }}>
+          Produits Sans Code Barre
+        </h1>
 
         <div className="product--Search--container">
-        <img src={search} alt="search-icon" />
-        <input
-          placeholder="Rechercher Produit"
-          className="outfit"
-        />
-      </div>
-        
-       {ProductsList}
-      </div>
+          <img src={search} alt="search-icon" />
+          <input
+            placeholder="Rechercher Produit"
+            className="outfit"
+            value={searchInput}
+            onChange={handleSearchInputChange}
+          />
+        </div>
 
-
+        {ProductsList}
+      </div>
     </div>
-  )
+  );
 }

@@ -51,6 +51,8 @@ module.exports = (sequelize, DataTypes) => {
   //   });
   Produit.associate = function (models) {
     Produit.belongsTo(models.Categorie);
+    Produit.hasMany(models.CartItems);
+    // Produit.belongsTo(models.CartItems);
   };
 
   // Produit.sync({ alert: true })

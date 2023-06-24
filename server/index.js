@@ -23,6 +23,9 @@ app.use("/categorie", categorieRouter);
 const produitRouter = require("./routes/Produit");
 app.use("/produit", produitRouter);
 
+const cartItemsRouter = require("./routes/CartItems");
+app.use("/cart", cartItemsRouter);
+
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {
     console.log("the server is running hmdlh 👌");

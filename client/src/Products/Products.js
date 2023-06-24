@@ -13,18 +13,12 @@ export default function Products() {
     fetchProducts();
   }, []);
 
-  const fetchProducts = () => {
-    axios.get("http://localhost:3001/produit").then((response) => {
+  const fetchProducts = async () => {
+    await axios.get("http://localhost:3001/produit").then((response) => {
       setProducts(response.data);
     });
   };
 
-  const deleteProduct = (productId) => {
-    axios.delete(`http://localhost:3001/produit/byId/${productId}`).then(() => {
-      // After deleting the product, fetch the updated list of products
-      fetchProducts();
-    });
-  };
   const ProductsList = products.map((produit) => {
     return (
       <ProductCard
@@ -36,7 +30,8 @@ export default function Products() {
         prixAchete={produit.prix_A}
         prixVendue={produit.prix_V}
         codeBar={produit.codeBar}
-        onDeleteProduct={deleteProduct}
+        fetchFunction={fetchProducts}
+        // onDeleteProduct={deleteProduct}
       />
     );
   });

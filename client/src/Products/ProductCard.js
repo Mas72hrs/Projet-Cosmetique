@@ -7,17 +7,19 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function ProductCard(props) {
-  const { onDeleteProduct } = props;
-  // const deleteProduct = async (id) => {
-  //   try {
-  //     const response = await axios.delete(
-  //       `http://localhost:3001/produit/byId/${id}`
-  //     );
-  //     console.log(response.data.message);
-  //   } catch (error) {
-  //     console.error("Error deleting product:", error);
-  //   }
-  // };
+  const { fetchFunction } = props;
+
+  const deleteProduct = (productId) => {
+    axios
+      .delete(`http://localhost:3001/produit/byId/${productId}`)
+      .then(() => {
+        // After deleting the product, fetch the updated list of products
+        fetchFunction();
+      })
+      .catch((error) => {
+        console.log("Error deleting product:", error);
+      });
+  };
 
   return (
     <div className="productcard-container">
@@ -47,8 +49,8 @@ export default function ProductCard(props) {
           <img
             src={trash}
             alt="edit"
-            onClick={() => {
-              onDeleteProduct(props.idProduit);
+            onClick={(e) => {
+              deleteProduct(props.idProduit);
             }}
           />
         </button>

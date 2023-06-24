@@ -12,6 +12,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/null-codebar", async (req, res) => {
+  try {
+    const products = await Produit.findAll({
+      where: {
+        codeBar: null,
+      },
+    });
+
+    res.json(products);
+  } catch (error) {
+    console.error("Error getting Products :", error);
+    res.status(500).json({ message: "Error Getting all Products " });
+  }
+});
+
 router.get("/byId/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -27,17 +42,8 @@ router.get("/byId/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const {
-      codeBar,
-      nomProduit,
-      marque,
-      quantite,
-      description,
-      prix_A,
-      prix_V,
-      DExp,
-      CategorieId,
-    } = req.body;
+    const { codeBar, nomProduit, quantite, prix_A, prix_V, DExp, CategorieId } =
+      req.body;
 
     // Vérification des champs obligatoires
     if (!nomProduit || !quantite || !prix_A || !prix_V) {
@@ -45,6 +51,33 @@ router.post("/", async (req, res) => {
       return res.status(400).json({
         message: "Veuillez fournir tous les champs obligatoires",
       });
+    }
+
+    if (codeBar === 0 || codeBar === "") {
+      const produit = await Produit.create({
+        nomProduit: nomProduit,
+        quantite: quantite,
+        prix_A: prix_A,
+        prix_V: prix_V,
+        DExp: DExp,
+        CategorieId: CategorieId,
+      });
+
+      return res.status(201).json(produit);
+    } else {
+      const produit = await Produit.create({
+        codeBar: codeBar,
+        nomProduit: nomProduit,
+
+        quantite: quantite,
+
+        prix_A: prix_A,
+        prix_V: prix_V,
+        DExp: DExp,
+        CategorieId: CategorieId,
+      });
+
+      return res.status(201).json(produit);
     }
 
     // const existingCatt = await Produit.findOne({
@@ -59,19 +92,6 @@ router.post("/", async (req, res) => {
     // }
 
     // Création de l'employé
-    const produit = await Produit.create({
-      codeBar: codeBar,
-      nomProduit: nomProduit,
-      marque: marque,
-      quantite: quantite,
-      description: description,
-      prix_A: prix_A,
-      prix_V: prix_V,
-      DExp: DExp,
-      CategorieId: CategorieId,
-    });
-
-    res.status(201).json(produit);
   } catch (error) {
     console.error("Error creating Produit:", error);
     res.status(500).json({ message: "Error creating Produit" });
