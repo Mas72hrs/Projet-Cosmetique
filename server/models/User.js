@@ -58,13 +58,16 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
   });
-  //   User.sync({ force: true })
-  //     .then(() => {
-  //       console.log("table synced");
-  //     })
-  //     .catch(() => {
-  //       console.log("error syncing ");
-  //     });
+  User.associate = function (models) {
+    User.hasMany(models.Vente);
+  };
+  // User.sync({ force: true })
+  //   .then(() => {
+  //     console.log("table synced");
+  //   })
+  //   .catch(() => {
+  //     console.log("error syncing ");
+  //   });
 
   return User;
 };

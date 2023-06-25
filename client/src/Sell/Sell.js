@@ -12,6 +12,7 @@ export default function Sell() {
   const [productsWithoutCode, setProductsWithoutCode] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const userData = JSON.parse(localStorage.getItem("accessToken"));
 
   useEffect(() => {
     axios.get("http://localhost:3001/produit/null-codebar").then((response) => {
@@ -80,6 +81,37 @@ export default function Sell() {
     );
   });
 
+  const totalPrice = cartItems.reduce((accumulator, product) => {
+    return accumulator + product.totalPrice;
+  }, 0);
+
+  const itemQuantities = {};
+
+  // Calculate item quantities
+  cartItems.forEach((item) => {
+    const { nomProduit, Quantity } = item;
+    if (itemQuantities[nomProduit]) {
+      itemQuantities[nomProduit] += Quantity;
+    } else {
+      itemQuantities[nomProduit] = Quantity;
+    }
+  });
+
+  const addNewVente = async () => {
+    try {
+      const response = await axios.post("http://localhost:3001/vente", {
+        items: itemQuantities,
+        price: totalPrice,
+        UserId: userData.id,
+      });
+      console.log(response.data);
+      fetchProducts();
+    } catch (error) {
+      console.error("Error adding new Vente", error);
+      // Handle the error
+    }
+  };
+
   return (
     <div className="big-sell-container">
       <div className="sell-container">
@@ -96,7 +128,10 @@ export default function Sell() {
           {/*<h1>Pas de Produit a Vendre</h1>*/}
         </div>
 
-        <button className="vendre-btn">Vendre</button>
+        <button className="vendre-btn" onClick={addNewVente}>
+          Vendre
+        </button>
+        <h2>{totalPrice}</h2>
       </div>
 
       <div className="products-without-barcode-list">

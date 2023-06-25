@@ -8,6 +8,7 @@ import axios from "axios";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     fetchProducts();
@@ -16,10 +17,19 @@ export default function Products() {
   const fetchProducts = async () => {
     await axios.get("http://localhost:3001/produit").then((response) => {
       setProducts(response.data);
+      setFilteredProducts(response.data);
     });
   };
 
-  const ProductsList = products.map((produit) => {
+  const handleFilter = (searchTerm) => {
+    const filtered = products.filter((product) => {
+      const name = `${product.nomProduit}`.toLowerCase();
+      return name.startsWith(searchTerm.toLowerCase());
+    });
+    setFilteredProducts(filtered);
+  };
+
+  const ProductsList = filteredProducts.map((produit) => {
     return (
       <ProductCard
         key={produit.id}
@@ -39,7 +49,7 @@ export default function Products() {
   return (
     <div style={{ marginRight: "40px" }}>
       <Header titre="Produits" />
-      <SearchBar />
+      <SearchBar onFilter={handleFilter} />
       <div className="products-container-grid">{ProductsList}</div>
     </div>
   );
