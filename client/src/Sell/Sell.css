@@ -1,136 +1,159 @@
 .big-sell-container {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .vendreList {
-    width: 100%;
-    height: 70vh;
-    background-color: rgba(128, 128, 128, 0.276);
-    border-radius: 20px;
-    backdrop-filter: blur(2px);
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 25px;
-    grid-auto-rows: auto;
-    overflow: auto;
-    padding: 20px;
+  width: 100%;
+  height: 70vh;
+  background-color: rgba(128, 128, 128, 0.276);
+  border-radius: 20px;
+  backdrop-filter: blur(2px);
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 25px;
+  grid-auto-rows: auto;
+  overflow: auto;
+  padding: 20px;
 }
 
 .centre-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
 .vendreList h1 {
-    color: grey;
-  
+  color: grey;
 }
 
 .sell-container {
-    width: 75%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 40px;
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 40px;
+}
+
+.container-btn {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 100%;
 }
 
 .vendre-btn {
-    color: white;
-    border-radius: 25px;
-    background-color:  #5f7adb;
-    width: fit-content;
-    height: 55px;
-    font-size: 18px;
-    padding: 5px 30px;
-    transition: 0.3s;
-    margin-top: 15px;
+  color: white;
+  border-radius: 25px;
+  background-color: #5f7adb;
+  width: fit-content;
+  height: 55px;
+  font-size: 18px;
+  padding: 5px 30px;
+  transition: 0.3s;
+  margin-right: 25px;
+  margin-top: 15px;
 }
 
 .vendre-btn:hover {
-    background-color: #3e5fd9;
-    transition: 0.3s;
+  background-color: #3e5fd9;
+  transition: 0.3s;
+}
+.credit-btn {
+  color: white;
+  border-radius: 25px;
+  background-color: #e04e4e;
+  width: fit-content;
+  height: 55px;
+  font-size: 18px;
+  padding: 5px 30px;
+  transition: 0.3s;
+  margin-top: 15px;
 }
 
+.credit-btn:hover {
+  background-color: #ed2727;
+  transition: 0.3s;
+}
 
-
+.input-nomClient {
+  width: 20rem;
+  outline: none;
+  border: none;
+  background-color: white;
+  padding: 10px;
+  margin: 10px 20px;
+  font-size: large;
+  border-radius: 1rem;
+}
 
 .products-without-barcode-list {
-    height: 100vh;
-    width: 400px !important;
-    background-color: #26292b;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-
+  height: 100vh;
+  width: 400px !important;
+  background-color: #26292b;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /*****   Search bar *******/
 
-
 .product--Search--container {
-    border-radius: 25px;
-    background-color: #D9D9D9;
-    width: 60%;
-    height: 50px;
-    padding: 5px 30px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
+  border-radius: 25px;
+  background-color: #d9d9d9;
+  width: 60%;
+  height: 50px;
+  padding: 5px 30px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .product--Search--container input {
-    outline: none;
-    background-color: transparent;
-    border: none;
-    margin-left: 10px;
-    font-size: 18px;
-    width: 100%;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+  font-size: 18px;
+  width: 100%;
 }
 
-
 .add-code {
-    background-color: #ffffff;
-    width: fit-content;
-    padding-right: 10px;
-    height: 60px;
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+  background-color: #ffffff;
+  width: fit-content;
+  padding-right: 10px;
+  height: 60px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .add-code img {
-    width: 25px;
+  width: 25px;
 }
-
 
 .add-code button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    background-color: #26292b;
-    border-radius: 50%;
-    padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background-color: #26292b;
+  border-radius: 50%;
+  padding: 5px;
 }
 
-
-
 .add-code input {
-    height: 70%;
-    font-weight: bold;
-    font-family: outfit;
-    background-color: transparent;
-    outline: none;
-    border: none;
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    padding-left: 15px;
+  height: 70%;
+  font-weight: bold;
+  font-family: outfit;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  padding-left: 15px;
 }

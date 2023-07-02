@@ -12,6 +12,7 @@ export default function Sell() {
   const [productsWithoutCode, setProductsWithoutCode] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [nomClient, setNomClient] = useState("");
   const userData = JSON.parse(localStorage.getItem("accessToken"));
 
   useEffect(() => {
@@ -112,6 +113,25 @@ export default function Sell() {
     }
   };
 
+  const addCredit = async () => {
+    try {
+      const response = await axios.post("http://localhost:3001/credit", {
+        client: nomClient,
+        prixTotalCredit: totalPrice,
+        UserId: userData.id,
+      });
+      console.log(response.data);
+      fetchProducts();
+    } catch (error) {
+      console.error("Error adding credit", error);
+      // Handle the error
+    }
+  };
+
+  const handleInputChange = (e) => {
+    setNomClient(e.target.value);
+  };
+
   return (
     <div className="big-sell-container">
       <div className="sell-container">
@@ -127,10 +147,27 @@ export default function Sell() {
           {ProductsToSellList}
           {/*<h1>Pas de Produit a Vendre</h1>*/}
         </div>
+        <div className="container-btn">
+          <button className="vendre-btn" onClick={addNewVente}>
+            Vendre
+          </button>
 
-        <button className="vendre-btn" onClick={addNewVente}>
-          Vendre
-        </button>
+          <button
+            className="credit-btn"
+            onClick={addCredit}
+            disabled={nomClient === "" || nomClient.length <= 2}
+          >
+            Credit
+          </button>
+
+          <input
+            type="text"
+            className="input-nomClient"
+            placeholder="enter le nom de client qui fait le credit"
+            onChange={handleInputChange}
+          />
+        </div>
+
         <h2>{totalPrice}</h2>
       </div>
 

@@ -29,6 +29,12 @@ app.use("/cart", cartItemsRouter);
 const venteRouter = require("./routes/Vente");
 app.use("/vente", venteRouter);
 
+const creditRouter = require("./routes/Credit");
+app.use("/credit", creditRouter);
+
+const analyticsRouter = require("./routes/Analytics");
+app.use("/analytics", analyticsRouter);
+
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {
     console.log("the server is running hmdlh 👌");

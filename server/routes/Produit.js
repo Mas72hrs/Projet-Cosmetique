@@ -68,9 +68,7 @@ router.post("/", async (req, res) => {
       const produit = await Produit.create({
         codeBar: codeBar,
         nomProduit: nomProduit,
-
         quantite: quantite,
-
         prix_A: prix_A,
         prix_V: prix_V,
         DExp: DExp,
