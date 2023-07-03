@@ -8,6 +8,7 @@ import Historic from "../Historic/Historic";
 import Analytics from "../Analytics/Analytics";
 import { useParams } from "react-router-dom";
 import UsersWindow from "../Users/UsersWindow";
+import Credit from "../Credit/Credit";
 
 export default function InPage() {
   const userData = JSON.parse(localStorage.getItem("accessToken"));
@@ -39,6 +40,7 @@ export default function InPage() {
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/utilisateurs" element={<UsersWindow />} />
           <Route path="/produits/:productName" element={<OneProductWindow />} />
+          <Route path="/credit" element={<Credit />} />
         </Routes>
       </div>
     </div>
