@@ -10,9 +10,11 @@ export default function Analytics() {
   }, []);
 
   const fetchAnalytics = async () => {
-    await axios.get("http://localhost:3001/analytics").then((response) => {
-      setAnalytics(response.data);
-    });
+    await axios
+      .get("http://localhost:3001/analytics/AllDataHere")
+      .then((response) => {
+        setAnalytics(response.data);
+      });
   };
   return (
     <div>

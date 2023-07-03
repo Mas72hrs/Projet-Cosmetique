@@ -53,7 +53,43 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Error creating credit" });
   }
 });
-//Suppression categorie
+//modification de prix credit
+router.patch("/byId/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { somme } = req.body;
+
+    const currentDate = new Date();
+
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+
+    const dateDeCredit = `${year}-${month}-${day}`;
+
+    const credit = await Credit.findOne({ where: { id: id } });
+    if (credit.prixTotalCredit < somme) {
+      return res
+        .status(404)
+        .json({ message: "la somme de credit a payé est incorrecte" });
+    } else {
+      const creditupdated = await Credit.update(
+        {
+          prixTotalCredit: credit.prixTotalCredit - parseFloat(somme),
+          date: dateDeCredit,
+        },
+        { where: { id: id } }
+      );
+
+      return res.json(creditupdated);
+    }
+  } catch (error) {
+    console.error("Error updating Credit:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+//Suppression credit
 router.delete("/byId/:id", async (req, res) => {
   try {
     const id = req.params.id;
