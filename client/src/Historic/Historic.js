@@ -19,6 +19,8 @@ export default function Historic() {
   return (
     <div>
       <Header titre="Historique Ventes" />
+      <div className="liste-users">
+
       {ventes.map((vente) => {
         return (
           <HistoricCard
@@ -31,6 +33,8 @@ export default function Historic() {
           />
         );
       })}
+      </div>
+
     </div>
   );
 }

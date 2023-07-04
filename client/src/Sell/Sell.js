@@ -132,18 +132,68 @@ export default function Sell() {
     setNomClient(e.target.value);
   };
 
+  /*********** Segg */
+
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+  const products = [
+    "Product 1",
+    "Product 2",
+    "Product 3",
+    // Add more product names here
+  ];
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
+
+    // Filter the product names based on the input value
+    const filteredSuggestions = products.filter((product) =>
+      product.toLowerCase().includes(value.toLowerCase())
+    );
+    setSuggestions(filteredSuggestions);
+  };
+
+  const handleSelectSuggestion = (e) => {
+    setInputValue(e.target.value);
+    setSuggestions([]);
+  };
+
   return (
     <div className="big-sell-container">
       <div className="sell-container">
         <Header titre="Vendre" />
 
-        <div className="vendreList ">
-          <div className="add-code">
-            <input placeholder="Entrer Code Barre ..." type="number" />
-            <button>
-              <img src={done} alt="done" />
-            </button>
+        <div className="vendreList">
+          <div className="upper-div">
+            <div className="add-code">
+              <input
+                placeholder="Enter Product Name ..."
+                type="text"
+                value={inputValue}
+                onChange={handleSearchChange}
+                list="suggestions"
+              />
+              <button>
+                <img src={done} alt="done" />
+              </button>
+
+              <datalist id="suggestions">
+                {suggestions.map((suggestion, index) => (
+                  <option
+                    key={index}
+                    value={suggestion}
+                    onClick={handleSelectSuggestion}
+                  />
+                ))}
+              </datalist>
+            </div>
+            <h1 style={{color:"white",marginBottom:"20px",marginLeft:"50px"}}>
+              Prix Totale : {totalPrice} Da
+            </h1>
           </div>
+
           {ProductsToSellList}
           {/*<h1>Pas de Produit a Vendre</h1>*/}
         </div>
@@ -163,12 +213,11 @@ export default function Sell() {
           <input
             type="text"
             className="input-nomClient"
-            placeholder="enter le nom de client qui fait le credit"
+            placeholder="Enter le Nom de Client Qui a Fait Le Credit"
             onChange={handleInputChange}
           />
         </div>
 
-        <h2>{totalPrice}</h2>
       </div>
 
       <div className="products-without-barcode-list">
