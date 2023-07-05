@@ -45,6 +45,31 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Error creating newItem" });
   }
 });
+//add new item to the cart based on nomProduit
+router.post("/nomproduit", async (req, res) => {
+  try {
+    const { nomProduit } = req.body;
+
+    const produit = await Produit.findOne({
+      where: { nomProduit: nomProduit },
+    });
+
+    if (produit) {
+      const createdNewItem = await CartItems.create({
+        ProduitId: produit.id,
+        nomProduit: produit.nomProduit,
+        itemPrice: produit.prix_V,
+        totalPrice: produit.prix_V,
+      });
+      return res.status(200).json({ message: "nouveau item est cree" });
+    } else {
+      return res.status(400).json({ message: "produit non trouvé" });
+    }
+  } catch (error) {
+    console.error("Error creating newItem:", error);
+    res.status(500).json({ message: "Error creating newItem" });
+  }
+});
 //Suppression categorie
 router.delete("/byId/:id", async (req, res) => {
   try {

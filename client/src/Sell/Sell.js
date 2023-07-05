@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Header/Header.js";
 import "./Sell.css";
-import { ProductsData } from "../Products/ProductsData.js";
 import ProductWithoutCode from "./ProductWithoutCode.js";
 import ProductToSellCard from "./ProductToSellCard.js";
 import search from "../Icons/search-icon.png";
@@ -11,9 +10,12 @@ import axios from "axios";
 export default function Sell() {
   const [productsWithoutCode, setProductsWithoutCode] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+
   const [searchInput, setSearchInput] = useState("");
   const [nomClient, setNomClient] = useState("");
   const userData = JSON.parse(localStorage.getItem("accessToken"));
+  const [inputValue, setInputValue] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:3001/produit/null-codebar").then((response) => {
@@ -30,6 +32,24 @@ export default function Sell() {
       setCartItems(response.data);
     });
   };
+  const fetchSearchedProducts = async (query) => {
+    const queryParams = {
+      term: inputValue,
+    };
+
+    // Convert the query parameters object into a query string
+    const queryString = new URLSearchParams(queryParams).toString();
+    await axios
+      .get(`http://localhost:3001/produit/searchProduct?${queryString}`)
+
+      .then((response) => {
+        setSuggestions(response.data);
+      });
+  };
+
+  useEffect(() => {
+    fetchSearchedProducts();
+  }, [inputValue]);
 
   const deleteCartItems = (productId) => {
     axios
@@ -134,30 +154,33 @@ export default function Sell() {
 
   /*********** Segg */
 
-  const [inputValue, setInputValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-
-  const products = [
-    "Product 1",
-    "Product 2",
-    "Product 3",
-    // Add more product names here
-  ];
-
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
 
-    // Filter the product names based on the input value
-    const filteredSuggestions = products.filter((product) =>
-      product.toLowerCase().includes(value.toLowerCase())
-    );
-    setSuggestions(filteredSuggestions);
+    // // Filter the product names based on the input value
+    // const filteredSuggestions = products.filter((product) =>
+    //   product.toLowerCase().includes(value.toLowerCase())
+    // );
+    // setSuggestions(filteredSuggestions);
   };
 
-  const handleSelectSuggestion = (e) => {
-    setInputValue(e.target.value);
-    setSuggestions([]);
+  const handleSelectSuggestion = (value) => {
+    try {
+      axios
+        .post("http://localhost:3001/cart/nomproduit", {
+          nomProduit: value,
+        })
+        .then(() => {
+          // After deleting the product, fetch the updated list of products
+          fetchProducts();
+          setSuggestions([]);
+        });
+      console.log(value);
+    } catch (error) {
+      console.error("Error adding new product", error);
+      // Handle the error
+    }
   };
 
   return (
@@ -176,20 +199,28 @@ export default function Sell() {
                 list="suggestions"
               />
               <button>
-                <img src={done} alt="done" />
+                <img
+                  src={done}
+                  alt="done"
+                  onClick={() => {
+                    handleSelectSuggestion(inputValue);
+                  }}
+                />
               </button>
 
               <datalist id="suggestions">
-                {suggestions.map((suggestion, index) => (
-                  <option
-                    key={index}
-                    value={suggestion}
-                    onClick={handleSelectSuggestion}
-                  />
+                {suggestions.map((suggestion) => (
+                  <option key={suggestion.id} value={suggestion.nomProduit} />
                 ))}
               </datalist>
             </div>
-            <h1 style={{color:"white",marginBottom:"20px",marginLeft:"50px"}}>
+            <h1
+              style={{
+                color: "white",
+                marginBottom: "20px",
+                marginLeft: "50px",
+              }}
+            >
               Prix Totale : {totalPrice} Da
             </h1>
           </div>
@@ -217,7 +248,6 @@ export default function Sell() {
             onChange={handleInputChange}
           />
         </div>
-
       </div>
 
       <div className="products-without-barcode-list">

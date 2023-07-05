@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Produit } = require("../models");
+const { Op } = require("sequelize");
 
 router.get("/", async (req, res) => {
   try {
@@ -32,6 +33,25 @@ router.get("/byId/:id", async (req, res) => {
     const id = req.params.id;
     const produit = await Produit.findOne({ where: { id: id } });
     res.json(produit);
+  } catch (error) {
+    console.error("Error getting this specific product :", error);
+    res.status(500).json({ message: "Error Getting this product " });
+  }
+});
+
+router.get("/searchProduct", async (req, res) => {
+  try {
+    const term = req.query.term;
+
+    const productsAfterSearch = await Produit.findAll({
+      where: {
+        nomProduit: {
+          [Op.like]: `${term}%`,
+        },
+      },
+      limit: 3,
+    });
+    res.json(productsAfterSearch);
   } catch (error) {
     console.error("Error getting this specific product :", error);
     res.status(500).json({ message: "Error Getting this product " });

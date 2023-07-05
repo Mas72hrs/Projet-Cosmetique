@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Vente, CartItems } = require("../models");
+const { Vente, CartItems, Analytics, User, Sequelize } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
@@ -62,8 +62,77 @@ router.post("/", async (req, res) => {
 
     // Delete all records from CartItems table
     await CartItems.destroy({ where: {} });
+    let analyticsExist = await Analytics.findOne({
+      where: {
+        annee: year,
+        mois: month,
+      },
+    });
 
-    res.status(200).json({ message: "Nouvelle vente a été créée" });
+    if (!analyticsExist) {
+      await Analytics.create({
+        annee: year,
+        mois: month,
+        nbrVentes: 1,
+        total: parseFloat(price),
+      });
+      //update necessary userData
+      const user = await User.findOne({ where: { id: UserId } });
+      if (user) {
+        await User.update(
+          {
+            sales_mois: 1,
+            numTotalSales: user.sales_mois + 1,
+            sales_value: price,
+          },
+          { where: { id: UserId } }
+        );
+        return res.status(201).json({
+          message:
+            "Nouvelle vente a été créée avec une nouvelle analytics table",
+        });
+      } else {
+        return res.status(404).json({
+          message: "user not found",
+        });
+      }
+    } else {
+      const analytic = await Analytics.findOne({
+        where: {
+          annee: year,
+          mois: month,
+        },
+      });
+      if (analytic) {
+        await Analytics.update(
+          {
+            nbrVentes: analytic.nbrVentes + 1,
+            numTotalSales: analytic.numTotalSales + 1,
+            total: analytic.total + parseFloat(price),
+          },
+          { where: { id: analytic.id } }
+        );
+      }
+
+      const user = await User.findOne({ where: { id: UserId } });
+      if (user) {
+        await User.update(
+          {
+            sales_mois: Sequelize.literal("sales_mois + 1"),
+            numTotalSales: Sequelize.literal("numTotalSales + 1"),
+            sales_value: user.sales_value + price,
+          },
+          { where: { id: UserId } }
+        );
+        return res.status(201).json({
+          message: "Nouvelle vente a été créée avec une mise a jour analytics ",
+        });
+      } else {
+        return res.status(404).json({
+          message: "user not found",
+        });
+      }
+    }
   } catch (error) {
     console.error("Error creating vente:", error);
     res.status(500).json({ message: "Error creating vente" });
