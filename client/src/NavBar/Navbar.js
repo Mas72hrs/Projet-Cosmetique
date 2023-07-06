@@ -16,64 +16,50 @@ export default function Navbar(props) {
     <nav>
       <img src={logo} alt="logo-application" />
       <ul>
-        <Link to="/inpage/vendre">
-          <li
-            className={location.pathname === "/inpage/vendre" ? "active" : ""}
-          >
+        <li className={location.pathname === "/inpage/vendre" ? "active" : ""}>
+          <Link to="/inpage/vendre">
             <img src={sell} alt="logo-Vendre" />
-            <a>Vendre</a>
-          </li>
-        </Link>
-        <Link to="/inpage/produits">
-          <li
-            className={location.pathname.includes("/produits") ? "active" : ""}
-          >
+            Vendre
+          </Link>
+        </li>
+        <li className={location.pathname.includes("/produits") ? "active" : ""}>
+          <Link to="/inpage/produits">
             <img src={product} alt="logo-Produits" />
-            <a>Produits</a>
-          </li>
-        </Link>
-        <Link to="/inpage/historique">
-          <li
-            className={
-              location.pathname === "/inpage/historique" ? "active" : ""
-            }
-          >
+            Produits
+          </Link>
+        </li>
+        <li
+          className={location.pathname === "/inpage/historique" ? "active" : ""}
+        >
+          <Link to="/inpage/historique">
             <img src={historical} alt="logo-Historique" />
-            <a>Historique</a>
-          </li>
-        </Link>
-        <Link to="/inpage/credit">
-          <li
-            className={
-              location.pathname === "/inpage/credit" ? "active" : ""
-            }
-          >
+            Historique
+          </Link>
+        </li>
+        <li className={location.pathname === "/inpage/credit" ? "active" : ""}>
+          <Link to="/inpage/credit">
             <img src={money} alt="logo-credit" />
-            <a>Crédit</a>
-          </li>
-        </Link>
-
-        <Link to="/inpage/analytics">
-          <li
-            className={
-              location.pathname === "/inpage/analytics" ? "active" : ""
-            }
-          >
+            Crédit
+          </Link>
+        </li>
+        <li
+          className={location.pathname === "/inpage/analytics" ? "active" : ""}
+        >
+          <Link to="/inpage/analytics">
             <img src={analytics} alt="logo-Analytics" />
-            <a>Analytics</a>
-          </li>
-        </Link>
-        
-        <Link to="/inpage/utilisateurs">
-          <li
-            className={
-              location.pathname === "/inpage/utilisateurs" ? "active" : ""
-            }
-          >
+            Analytics
+          </Link>
+        </li>
+        <li
+          className={
+            location.pathname === "/inpage/utilisateurs" ? "active" : ""
+          }
+        >
+          <Link to="/inpage/utilisateurs">
             <img src={user} alt="logo-utilisateurs" />
-            <a>Utilisateurs</a>
-          </li>
-        </Link>
+            Utilisateurs
+          </Link>
+        </li>
       </ul>
 
       <div className="navbar--user--info">

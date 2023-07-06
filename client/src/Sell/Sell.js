@@ -83,6 +83,7 @@ export default function Sell() {
         quantite={produit.quantite}
         prixVendue={produit.prix_V}
         onFetch={fetchProducts}
+        idId={produit.ProduitId}
       />
     );
   });
@@ -98,6 +99,7 @@ export default function Sell() {
         prixVendue={produit.itemPrice}
         ondelete={deleteCartItems}
         onFetch={fetchProducts}
+        idId={produit.ProduitId}
       />
     );
   });

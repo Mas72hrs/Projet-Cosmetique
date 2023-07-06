@@ -92,27 +92,41 @@ router.delete("/byId/:id", async (req, res) => {
 router.patch("/TotalPrice/:idItem", async (req, res) => {
   try {
     const id = req.params.idItem;
-    const { Qte } = req.body;
+    const { Qte, idProduit } = req.body;
 
-    await CartItems.update(
-      {
-        Quantity: Qte,
-      },
-      { where: { id: id } }
-    );
+    const produitInfo = await Produit.findOne({ where: { id: idProduit } });
+    if (!produitInfo || Qte > produitInfo.quantite) {
+      return res
+        .status(400)
+        .json("la quantite de produit acheté est invalide.");
+    } else {
+      // if (produitInfo) {
+      //   if (Qte > produitInfo.quantite) {
+      //     return res
+      //       .status(400)
+      //       .json("la quantite de produit acheté est invalide.");
+      //   }
+      // }
+      await CartItems.update(
+        {
+          Quantity: Qte,
+        },
+        { where: { id: id } }
+      );
 
-    const updatedCartItems = await CartItems.findOne({ where: { id: id } });
+      const updatedCartItems = await CartItems.findOne({ where: { id: id } });
 
-    const totalPrice = updatedCartItems.Quantity * updatedCartItems.itemPrice;
+      const totalPrice = updatedCartItems.Quantity * updatedCartItems.itemPrice;
 
-    await CartItems.update(
-      {
-        totalPrice: totalPrice,
-      },
-      { where: { id: id } }
-    );
+      await CartItems.update(
+        {
+          totalPrice: totalPrice,
+        },
+        { where: { id: id } }
+      );
 
-    return res.json(`prix Total updated `);
+      return res.json(`prix Total updated `);
+    }
   } catch (error) {
     console.error("Error lors de la modification de prix Total", error);
     return res.status(500).json("Error modifying Total Price.");

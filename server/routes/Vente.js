@@ -1,6 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { Vente, CartItems, Analytics, User, Sequelize } = require("../models");
+const {
+  Vente,
+  CartItems,
+  Analytics,
+  User,
+  Sequelize,
+  Produit,
+} = require("../models");
 
 router.get("/", async (req, res) => {
   try {
@@ -37,12 +44,46 @@ router.post("/", async (req, res) => {
 
     const dateDeVente = `${year}-${month}-${day}`;
 
+    const productsString = Object.entries(items)
+      .map(([productName, quantity]) => `${productName}: ${quantity}`)
+      .join(", ");
+
     // No conflict, create the new Vente
     const vente = await Vente.create({
       date: dateDeVente,
       prixTotal: parseFloat(price),
+      productsBought: productsString,
       UserId: UserId,
     });
+
+    // Convert items object into an array of [productName, quantity]
+    const itemsArray = Object.entries(items);
+
+    // Decrease stock quantities for each item purchased
+    for (const [productName, quantity] of itemsArray) {
+      // Find product by name
+      const product = await Produit.findOne({
+        where: { nomProduit: productName },
+      });
+
+      if (!product) {
+        console.error(`Product '${productName}' not found.`);
+        continue; // Move to the next item if product not found
+      }
+
+      // Update stock quantity
+      if (product.quantite < quantity) {
+        return res.status(401).json({
+          message: "erreur de quantite",
+        });
+      } else {
+        const updatedQuantity = product.quantite - quantity;
+        await Produit.update(
+          { quantite: updatedQuantity },
+          { where: { id: product.id } }
+        );
+      }
+    }
 
     // Generate list of items bought with quantity
     //   const itemsBought = {};

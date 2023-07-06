@@ -29,24 +29,32 @@ router.post("/", async (req, res) => {
   try {
     const newCategorie = req.body.nomCategorie;
     const newCatName = newCategorie.toString();
-    // Check if the Categorie with the same name already exists
-    const existingCatt = await Categorie.findOne({
-      where: {
+    if (newCatName.length >= 2) {
+      // Check if the Categorie with the same name already exists
+      const existingCatt = await Categorie.findOne({
+        where: {
+          nomCategorie: newCatName,
+        },
+      });
+
+      if (existingCatt) {
+        // Categorie with the same name already exists
+        return res.status(409).json({ message: "Categorie already exists" });
+      }
+
+      // No conflict, create the new Categorie
+      const createdCat = await Categorie.create({
         nomCategorie: newCatName,
-      },
-    });
+      });
 
-    if (existingCatt) {
-      // Categorie with the same name already exists
-      return res.status(409).json({ message: "Categorie already exists" });
+      return res.status(200).json({ message: "nouvelle Categorie a ete cree" });
+    } else {
+      return res
+        .status(400)
+        .json({
+          message: "nom de categorie doit avoir au min 2 caractéres long",
+        });
     }
-
-    // No conflict, create the new Categorie
-    const createdCat = await Categorie.create({
-      nomCategorie: newCatName,
-    });
-
-    res.status(200).json({ message: "nouvelle Categorie a ete cree" });
   } catch (error) {
     console.error("Error creating categorie:", error);
     res.status(500).json({ message: "Error creating categorie" });

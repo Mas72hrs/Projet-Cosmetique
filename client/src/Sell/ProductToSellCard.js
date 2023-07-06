@@ -4,17 +4,21 @@ import trash from "../Icons/trash.png";
 import axios from "axios";
 
 export default function ProductToSellCard(props) {
-  const { onFetch } = props;
+  const { onFetch, idId } = props;
   const { ondelete } = props;
   const [quantite, setQuantite] = useState(props.Quantity);
   const [unité, setUnité] = useState(props.prixVendue);
+  const [maxValue, setMaxValue] = useState(0);
 
   const [prix, setPrix] = useState(unité * quantite);
 
-  const modifierPrixTotal = async (id) => {
+  const modifierPrixTotal = async (idFunc, IDID) => {
     try {
       const response = await axios
-        .patch(`http://localhost:3001/cart/TotalPrice/${id}`, { Qte: quantite })
+        .patch(`http://localhost:3001/cart/TotalPrice/${idFunc}`, {
+          Qte: quantite,
+          idProduit: IDID,
+        })
         .then(() => {
           onFetch();
           console.log(response.data.message);
@@ -25,7 +29,9 @@ export default function ProductToSellCard(props) {
   };
 
   const increaseQuantite = () => {
-    setQuantite((prevQuantite) => prevQuantite + 1);
+    if (maxValue.quantite > quantite) {
+      setQuantite((prevQuantite) => prevQuantite + 1);
+    }
   };
   const handleDelete = () => {
     ondelete(props.idItem);
@@ -39,8 +45,20 @@ export default function ProductToSellCard(props) {
 
   useEffect(() => {
     setPrix(unité * quantite);
-    modifierPrixTotal(props.idItem);
+    modifierPrixTotal(props.idItem, props.idId);
   }, [quantite, unité, prix]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
+  const fetchProduct = async () => {
+    await axios
+      .get(`http://localhost:3001/produit/byId/${idId}`)
+      .then((response) => {
+        setMaxValue(response.data);
+      });
+  };
 
   return (
     <div className="product-tosell-card">
@@ -50,7 +68,11 @@ export default function ProductToSellCard(props) {
           -
         </button>
         {quantite}
-        <button onClick={increaseQuantite} className="add-1-quantity">
+        <button
+          onClick={increaseQuantite}
+          className="add-1-quantity"
+          disabled={maxValue.quantite <= quantite}
+        >
           +
         </button>
       </div>
