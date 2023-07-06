@@ -22,20 +22,13 @@ export default function HistoricCard(props) {
       </div>
       <div>
         <h1>Poducts Bought</h1>
+        <div style={{width:"200px"}}>
         <p>{props.productsBought}</p>
+        </div>
+
       </div>
 
-      <button
-        className="voir-ventes-btn"
-        style={{ backgroundColor: "rgb(37, 37, 37)" }}
-        onClick={() => toggleFunctions()}
-      >
-        <img
-          src={arrow}
-          alt="show-sales"
-          style={{ transform: rotate ? "rotate(270deg)" : "rotate(90deg)" }}
-        />
-      </button>
+
     </div>
   );
 }

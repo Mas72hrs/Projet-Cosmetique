@@ -63,8 +63,14 @@ export default function Navbar(props) {
       </ul>
 
       <div className="navbar--user--info">
+        <div>
         <h3>{props.nom}</h3>
         <p>Admin</p>
+        </div>
+
+        <div>
+          <button>Log out</button>
+        </div>
       </div>
     </nav>
   );

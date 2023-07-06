@@ -125,7 +125,6 @@ button:disabled {
 
 .upper-div {
   display: flex;
-  align-items: center;
 }
 
 button:disabled:hover {

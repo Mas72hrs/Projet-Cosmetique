@@ -9,3 +9,23 @@
     align-items: center;
     justify-content: center;
 }
+
+.card-left {
+    width: 60%;
+    height: 100%;
+}
+
+.card-right {
+    width: 40%;
+}
+
+.card-left h2 {
+    font-size: 2vw;
+    margin-top: 10px;
+    color: rgb(59, 59, 59);
+}
+
+.card-left h1 {
+    font-size: 2.4vw;
+    margin-top: 30px;
+}
