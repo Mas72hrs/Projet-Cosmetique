@@ -28,13 +28,19 @@
     width: 100%;
 }
 
+.btns-search {
+    display: flex;
+    width: fit-content;
+}
+
 .ajouter-produit-btn {
     color: white;
     border-radius: 25px;
     background-color:  #5f7adb;
-    width: 15%;
+    width: 220px;
     height: 50px;
     font-size: 18px;
+    margin-right: 10px;
     padding: 0 10px;
     display: flex;
     justify-content: center;
@@ -67,6 +73,18 @@
     border-radius: 10px;
     width: auto;
     height: auto;
+}
+
+.height-vh {
+    height: 40vh;
+}
+
+
+.category-list {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(auto,1fr);
+    overflow: auto;
 }
 
 

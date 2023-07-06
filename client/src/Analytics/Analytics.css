@@ -1,0 +1,16 @@
+
+.analytics-container {
+
+    display: flex;
+}
+
+
+.all-cards {
+
+    width: 25%;
+}
+
+.charts {
+  
+    width: 75%;
+}

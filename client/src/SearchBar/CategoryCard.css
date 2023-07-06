@@ -1,0 +1,11 @@
+.category-container {
+    width: 80%;
+    background-color: rgb(120 133 179);
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0 5px 0 20px;
+    height: 45px;
+}
