@@ -51,6 +51,15 @@ router.get("/AllDataHere", async (req, res) => {
     // nombre de credits
 
     let nbrCreditsTotal = await Credit.count();
+    let nbrProduit = await Produit.count();
+    // produit Expired
+    let nbrProduitExpired = await Produit.count({
+      where: {
+        DExp: {
+          [Op.lt]: new Date(), // Use the less than (lt) operator to compare with the current date
+        },
+      },
+    });
 
     const allData = {
       analyticsThisYear: analyticsThisYear,
@@ -62,6 +71,8 @@ router.get("/AllDataHere", async (req, res) => {
       nbrProduits: nbrProduits,
       sommeDesPrixDachat: depensesProduits,
       nbrCreditsTotal: nbrCreditsTotal,
+      nbrProduit: nbrProduit,
+      nbrProduitExpired: nbrProduitExpired,
     };
 
     res.json(allData);

@@ -7,10 +7,16 @@ import analytics from "../Icons/icons8-analytics-96.png";
 import user from "../Icons/icons8-user-96.png";
 import money from "../Icons/icons8-money-100.png";
 import logo from "../Icons/logo.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Navbar(props) {
   const location = useLocation();
+
+  let navigate = useNavigate();
+  const handleLogOutClick = () => {
+    localStorage.removeItem("accessToken");
+    navigate("/");
+  };
 
   return (
     <nav>
@@ -64,12 +70,12 @@ export default function Navbar(props) {
 
       <div className="navbar--user--info">
         <div>
-        <h3>{props.nom}</h3>
-        <p>Admin</p>
+          <h3>{props.nom}</h3>
+          <p>Admin</p>
         </div>
 
         <div>
-          <button>Log out</button>
+          <button onClick={handleLogOutClick}>Log out</button>
         </div>
       </div>
     </nav>
