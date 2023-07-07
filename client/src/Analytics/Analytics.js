@@ -56,7 +56,8 @@ export default function Analytics() {
       ],
     };
 
-  // : null;
+  const creditData = analytics.creditData || [];
+  const creditArray = Object.entries(creditData);
 
   const options = {
     responsive: true,
@@ -67,14 +68,11 @@ export default function Analytics() {
       <div className="analytics-container">
         <div className="all-cards">
           <AnalyticsCard name="Stockage" value="12" />
-          <AnalyticsCard
-            name="Produits"
-            value={analytics.nbrProduit || "error loading"}
-          />
+          <AnalyticsCard name="Produits" value={"error loading"} />
           <AnalyticsCard name="Profit" value="1500" />
           <AnalyticsCard
             name="Crédits"
-            value={analytics.nbrProduitExpired || "error loading"}
+            value={creditArray[0] || "error loading"}
           />
         </div>
 

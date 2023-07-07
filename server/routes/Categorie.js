@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Categorie } = require("../models");
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
 router.get("/", async (req, res) => {
   try {
@@ -49,11 +50,9 @@ router.post("/", async (req, res) => {
 
       return res.status(200).json({ message: "nouvelle Categorie a ete cree" });
     } else {
-      return res
-        .status(400)
-        .json({
-          message: "nom de categorie doit avoir au min 2 caractéres long",
-        });
+      return res.status(400).json({
+        message: "nom de categorie doit avoir au min 2 caractéres long",
+      });
     }
   } catch (error) {
     console.error("Error creating categorie:", error);

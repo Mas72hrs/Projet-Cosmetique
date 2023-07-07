@@ -1,12 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const { Sequelize } = require("sequelize");
-const { Analytics, Vente, Produit, Credit } = require("../models");
+const {
+  Analytics,
+  Vente,
+  Produit,
+  Credit,
+  User,
+  Categorie,
+  Sequelize,
+} = require("../models");
 const { Op } = require("sequelize");
 
 router.get("/", async (req, res) => {
   const Allanalytics = await Analytics.findAll();
   res.json(Allanalytics);
+});
+
+router.get("/test", async (req, res) => {
+  let currentDate = new Date();
+  let currentYear = currentDate.getFullYear();
+  let currentMonth = currentDate.getMonth() + 1;
+  // Fetch analytics for the current month
+  let analyticsThisMonth = await Analytics.findOne({
+    where: {
+      annee: parseInt(currentYear),
+      mois: parseInt(currentMonth),
+    },
+  });
+
+  res.json(analyticsThisMonth);
 });
 
 router.get("/AllDataHere", async (req, res) => {
@@ -25,10 +47,10 @@ router.get("/AllDataHere", async (req, res) => {
     });
 
     // Fetch analytics for the current month
-    let analyticsThisMonth = await Analytics.findAll({
+    let analyticsThisMonth = await Analytics.findOne({
       where: {
         annee: currentYear,
-        mois: currentMonth,
+        mois: currentMonth + 1,
       },
     });
 
@@ -42,37 +64,57 @@ router.get("/AllDataHere", async (req, res) => {
 
     let totalArgentAns = await Analytics.sum("total");
     let totalProfitAns = await Analytics.sum("profit_mois");
+    //somme des credits
+    let sommeCredits = await Credit.sum("prixTotalCredit");
+    //somme prix d'achat
+    let allproduits = await Produit.findAll();
+    const sommePrixDachat = allproduits.reduce((acc, product) => {
+      const productPrice = product.quantite * product.prix_A;
+      return acc + productPrice;
+    }, 0);
 
-    // total des produits
-
-    let nbrProduits = await Produit.count();
-
+    // nombre de produits outOfStock
+    let nbrProduitOutStock = await Produit.count({
+      where: {
+        quantite: 0,
+      },
+    });
     let depensesProduits = await Produit.sum("prix_A");
     // nombre de credits
 
     let nbrCreditsTotal = await Credit.count();
     let nbrProduit = await Produit.count();
-    // produit Expired
-    let nbrProduitExpired = await Produit.count({
-      where: {
-        DExp: {
-          [Op.lt]: new Date(), // Use the less than (lt) operator to compare with the current date
-        },
-      },
+
+    //find all users infos
+    let usersData = await User.findAll({
+      attributes: { exclude: ["password"] },
     });
+    // Retrieve categories with the count of products in each category
+    const data = await Categorie.findAll({
+      include: [{ model: Produit }],
+    });
+    const categoriesWithProductCount = data.map((category) => ({
+      nomCategorie: category.nomCategorie,
+      productCount: category.Produits.length,
+    }));
+
+    const creditData = { nbrCreditsTotal, sommeCredits };
+    const produitData = { sommePrixDachat, nbrProduitOutStock, nbrProduit };
+    const venteData = {
+      nbrVentesAns,
+      nbrVentesGen,
+      totalArgentAns,
+      totalProfitAns,
+    };
 
     const allData = {
-      analyticsThisYear: analyticsThisYear,
-      analyticsThisMonth: analyticsThisMonth,
-      nbrVentesAns: nbrVentesAns,
-      nbrVentesGeneral: nbrVentesGen,
-      totalArgentParAns: totalArgentAns,
-      totalProfitParAns: totalProfitAns,
-      nbrProduits: nbrProduits,
-      sommeDesPrixDachat: depensesProduits,
-      nbrCreditsTotal: nbrCreditsTotal,
-      nbrProduit: nbrProduit,
-      nbrProduitExpired: nbrProduitExpired,
+      analyticsThisYear,
+      analyticsThisMonth,
+      produitData,
+      venteData,
+      usersData,
+      creditData,
+      categoriesData: categoriesWithProductCount,
     };
 
     res.json(allData);

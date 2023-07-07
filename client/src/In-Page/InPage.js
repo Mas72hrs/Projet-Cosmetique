@@ -30,7 +30,7 @@ export default function InPage() {
     >
       <div>
         {/* nom={userIn.username} */}
-        <Navbar nom={userData.username} />
+        <Navbar nom={userData?.username || "none"} />
       </div>
       <div style={{ padding: "0 0px 0 40px" }}>
         <Routes>
