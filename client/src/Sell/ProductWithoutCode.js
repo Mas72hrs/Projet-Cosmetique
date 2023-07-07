@@ -24,8 +24,9 @@ export default function ProductWithoutCode(props) {
   return (
     <div className="produits-sans-code-container">
       <div className="details">
-        <h1>{props.nom}</h1>
-        <p>Quantité : {props.quantite}</p>
+        <h1>{props.nom || "onload"}</h1>
+
+        <p>Quantité : {props.quantite || "onload"}</p>
       </div>
 
       <button className="add-to-cart" onClick={handleAddToCart}>

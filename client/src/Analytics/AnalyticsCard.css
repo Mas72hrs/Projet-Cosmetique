@@ -1,31 +1,37 @@
 .analytics-card-container {
     background-color: rgb(255, 255, 255);
     box-shadow: 11px 14px 10px -3px rgba(0, 0, 0, 0.25);
-    border-radius: 30px;
+    border-radius: 30px 0 30px 0;
     margin-bottom: 20px;
-    height: 180px;
-
+    height: fit-content;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 15vw;
+    padding: 20px 0;
+    cursor: pointer;
 }
 
-.card-left {
-    width: 60%;
-    height: 100%;
-}
-
-.card-right {
-    width: 40%;
-}
-
-.card-left h2 {
+.analytics-card-container h2 {
     font-size: 2vw;
     margin-top: 10px;
     color: rgb(59, 59, 59);
 }
 
-.card-left h1 {
+.analytics-card-container h1 {
     font-size: 2.4vw;
-    margin-top: 30px;
+}
+
+
+.details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+
+.analytics-card-container:hover > .details {
+    max-height: 100px; /* Adjust the value to fit your content */
+    transition: max-height 0.5s ease-in;
 }

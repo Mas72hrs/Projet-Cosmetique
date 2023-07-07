@@ -78,3 +78,19 @@ a{
     font-size: 1vw;
 }
 
+
+
+.logout-btn {
+    border-radius: 25px;
+    padding: 10px 15px;
+    background-color: #e04e4e;
+    color: white;
+    transition: 0.2s;
+}
+
+
+.logout-btn:hover {
+    
+    background-color: #ed2727;
+    transition: 0.2s;
+}

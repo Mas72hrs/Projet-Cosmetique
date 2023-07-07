@@ -35,6 +35,9 @@ app.use("/credit", creditRouter);
 const analyticsRouter = require("./routes/Analytics");
 app.use("/analytics", analyticsRouter);
 
+const dayToDayDataRouter = require("./routes/DayToDayData");
+app.use("/today", dayToDayDataRouter);
+
 db.sequelize.sync().then(() => {
   app.listen(3001, () => {
     console.log("the server is running hmdlh 👌");

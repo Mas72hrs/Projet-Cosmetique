@@ -32,7 +32,8 @@ export default function InPage() {
         {/* nom={userIn.username} */}
         <Navbar nom={userData?.username || "none"} />
       </div>
-      <div style={{ padding: "0 0px 0 40px" }}>
+      <div style={{ padding: "0 0px 0 40px" ,          overflowY: "scroll", 
+          height: "100vh",}}>
         <Routes>
           <Route path="/vendre" element={<Sell />} />
           <Route path="/produits" element={<Products />} />

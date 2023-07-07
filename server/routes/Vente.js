@@ -7,6 +7,7 @@ const {
   User,
   Sequelize,
   Produit,
+  DayToDayData,
 } = require("../models");
 
 router.get("/", async (req, res) => {
@@ -56,6 +57,19 @@ router.post("/", async (req, res) => {
       UserId: UserId,
     });
 
+    // update the date in dayToday table
+    const dateToDay = `${year}-${month}-${day}`;
+
+    const todayData = await DayToDayData.findOne();
+    if (todayData.dateToDay !== dateToDay) {
+      const newData = await DayToDayData.update(
+        {
+          dateToDay: dateToDay,
+        },
+        { where: { id: todayData.id } }
+      );
+    }
+
     // Convert items object into an array of [productName, quantity]
     const itemsArray = Object.entries(items);
 
@@ -77,6 +91,18 @@ router.post("/", async (req, res) => {
           message: "erreur de quantite",
         });
       } else {
+        /***************************************************************************************/
+        const todayData = await DayToDayData.findOne();
+        const todayUpdate = await DayToDayData.update(
+          {
+            total: todayData.total + quantity * product.prix_V,
+            profitDay:
+              todayData.total +
+              quantity * Math.abs(product.prix_V - product.prix_A),
+          },
+          { where: { id: todayData.id } }
+        );
+
         const updatedQuantity = product.quantite - quantity;
         await Produit.update(
           { quantite: updatedQuantity },
@@ -84,25 +110,18 @@ router.post("/", async (req, res) => {
         );
       }
     }
-
-    // Generate list of items bought with quantity
-    //   const itemsBought = {};
-    //   items.forEach((item) => {
-    //     const { name, quantity } = item;
-    //     if (itemsBought[name]) {
-    //       itemsBought[name] += quantity;
-    //     } else {
-    //       itemsBought[name] = quantity;
-    //     }
-    //   });
-
-    //   // Store the items bought as text in the database field
-    //   const itemsBoughtText = JSON.stringify(itemsBought);
-    //   vente.itemsBought = itemsBoughtText;
-    //   await vente.save();
+    //update vente daytoDay
+    const todayData1 = await DayToDayData.findOne();
+    const essay = await DayToDayData.update(
+      {
+        nbrVentesDay: todayData1.nbrVentesDay + 1,
+      },
+      { where: { id: todayData1.id } }
+    );
 
     // Delete all records from CartItems table
     await CartItems.destroy({ where: {} });
+
     let analyticsExist = await Analytics.findOne({
       where: {
         annee: year,
@@ -165,6 +184,7 @@ router.post("/", async (req, res) => {
           },
           { where: { id: UserId } }
         );
+
         return res.status(201).json({
           message: "Nouvelle vente a été créée avec une mise a jour analytics ",
         });

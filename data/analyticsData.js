@@ -1,55 +1,23 @@
 // {
-// 	"analyticsThisYear": [
-// 		{
-// 			"id": 1,
-// 			"annee": 2023,
-// 			"mois": 1,
-// 			"nbrVentes": 77,
-// 			"profit_mois": 40000,
-// 			"total": 70000,
-// 			"createdAt": "2023-06-28T01:41:46.936Z",
-// 			"updatedAt": "2023-06-28T01:41:46.936Z"
-// 		},
-// 		{
-// 			"id": 2,
-// 			"annee": 2023,
-// 			"mois": 2,
-// 			"nbrVentes": 77,
-// 			"profit_mois": 40000,
-// 			"total": 70000,
-// 			"createdAt": "2023-06-28T01:41:59.376Z",
-// 			"updatedAt": "2023-06-28T01:41:59.376Z"
-// 		},
-// 		{
-// 			"id": 3,
-// 			"annee": 2023,
-// 			"mois": 7,
-// 			"nbrVentes": 12,
-// 			"profit_mois": 0,
-// 			"total": 49780,
-// 			"createdAt": "2023-07-05T09:16:24.929Z",
-// 			"updatedAt": "2023-07-06T22:27:39.172Z"
-// 		}
-// 	],
 // 	"analyticsThisMonth": {
 // 		"id": 3,
 // 		"annee": 2023,
 // 		"mois": 7,
-// 		"nbrVentes": 12,
+// 		"nbrVentes": 15,
 // 		"profit_mois": 0,
-// 		"total": 49780,
+// 		"total": 53780,
 // 		"createdAt": "2023-07-05T09:16:24.929Z",
-// 		"updatedAt": "2023-07-06T22:27:39.172Z"
+// 		"updatedAt": "2023-07-07T22:59:30.086Z"
 // 	},
 // 	"produitData": {
-// 		"sommePrixDachat": 35600,
-// 		"nbrProduitOutStock": 1,
+// 		"sommePrixDachat": 11540,
+// 		"nbrProduitOutStock": 2,
 // 		"nbrProduit": 5
 // 	},
 // 	"venteData": {
-// 		"nbrVentesAns": 166,
-// 		"nbrVentesGen": 166,
-// 		"totalArgentAns": 189780,
+// 		"nbrVentesAns": 169,
+// 		"nbrVentesGen": 169,
+// 		"totalArgentAns": 193780,
 // 		"totalProfitAns": 80000
 // 	},
 // 	"usersData": [
@@ -61,11 +29,11 @@
 // 			"sexe": "Homme",
 // 			"telephone": "0793023581",
 // 			"role": "admin",
-// 			"sales_mois": 12,
-// 			"numTotalSales": 12,
-// 			"sales_value": 18920,
+// 			"sales_mois": 15,
+// 			"numTotalSales": 15,
+// 			"sales_value": 22920,
 // 			"createdAt": "2023-06-25T08:15:38.248Z",
-// 			"updatedAt": "2023-07-06T20:32:09.942Z"
+// 			"updatedAt": "2023-07-07T22:59:30.102Z"
 // 		},
 // 		{
 // 			"id": 2,
@@ -99,5 +67,14 @@
 // 			"nomCategorie": "cigarette ",
 // 			"productCount": 3
 // 		}
-// 	]
+// 	],
+// 	"todayData": {
+// 		"id": 1,
+// 		"nbrVentesDay": 9,
+// 		"dateToDay": "2023-07-07",
+// 		"total": 16740,
+// 		"profitDay": 16240,
+// 		"createdAt": "2023-07-07T21:48:48.242Z",
+// 		"updatedAt": "2023-07-07T22:59:30.060Z"
+// 	}
 // }

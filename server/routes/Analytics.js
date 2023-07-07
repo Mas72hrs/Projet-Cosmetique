@@ -8,6 +8,7 @@ const {
   User,
   Categorie,
   Sequelize,
+  DayToDayData,
 } = require("../models");
 const { Op } = require("sequelize");
 
@@ -16,19 +17,39 @@ router.get("/", async (req, res) => {
   res.json(Allanalytics);
 });
 
-router.get("/test", async (req, res) => {
-  let currentDate = new Date();
-  let currentYear = currentDate.getFullYear();
-  let currentMonth = currentDate.getMonth() + 1;
+router.get("/byyear/:year", async (req, res) => {
+  const yearRequested = req.params.year;
+
   // Fetch analytics for the current month
-  let analyticsThisMonth = await Analytics.findOne({
+  let analyticsThisRequestedYear = await Analytics.findAll({
     where: {
-      annee: parseInt(currentYear),
-      mois: parseInt(currentMonth),
+      annee: parseInt(yearRequested),
     },
+
+    order: [["mois", "ASC"]],
   });
 
-  res.json(analyticsThisMonth);
+  const defaultData = Array.from({ length: 12 }, (_, index) => ({
+    annee: parseInt(yearRequested),
+    mois: index + 1,
+    nbrVentes: 0,
+    profit_mois: 0,
+    total: 0,
+  }));
+
+  analyticsThisRequestedYear.forEach((item) => {
+    const { annee, mois, nbrVentes, profit_mois, total } = item;
+    const monthIndex = mois - 1;
+    defaultData[monthIndex] = {
+      annee,
+      mois,
+      nbrVentes,
+      profit_mois,
+      total,
+    };
+  });
+
+  res.json(defaultData);
 });
 
 router.get("/AllDataHere", async (req, res) => {
@@ -38,14 +59,6 @@ router.get("/AllDataHere", async (req, res) => {
     let currentMonth = currentDate.getMonth();
     let currentDay = currentDate.getDay();
 
-    // Fetch analytics for the current year
-    let analyticsThisYear = await Analytics.findAll({
-      where: {
-        annee: currentYear,
-      },
-      order: [["mois", "ASC"]], // Order by mois field in ascending order
-    });
-
     // Fetch analytics for the current month
     let analyticsThisMonth = await Analytics.findOne({
       where: {
@@ -53,6 +66,8 @@ router.get("/AllDataHere", async (req, res) => {
         mois: currentMonth + 1,
       },
     });
+    //TodayData
+    const todayData = await DayToDayData.findOne();
 
     // Fetch the count of reservations with etat = "walkIn"
     let nbrVentesAns = await Analytics.sum("nbrVentes", {
@@ -108,13 +123,13 @@ router.get("/AllDataHere", async (req, res) => {
     };
 
     const allData = {
-      analyticsThisYear,
       analyticsThisMonth,
       produitData,
       venteData,
       usersData,
       creditData,
       categoriesData: categoriesWithProductCount,
+      todayData: todayData,
     };
 
     res.json(allData);

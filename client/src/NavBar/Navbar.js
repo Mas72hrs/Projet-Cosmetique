@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 import sell from "../Icons/icons8-sell-96.png";
 import product from "../Icons/icons8-product-96.png";
@@ -8,8 +8,11 @@ import user from "../Icons/icons8-user-96.png";
 import money from "../Icons/icons8-money-100.png";
 import logo from "../Icons/logo.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Modal from "react-modal";
 
 export default function Navbar(props) {
+
+  const [deleteUserModal, setDeleteUserModal] = useState(false);
   const location = useLocation();
 
   let navigate = useNavigate();
@@ -69,15 +72,23 @@ export default function Navbar(props) {
       </ul>
 
       <div className="navbar--user--info">
-        <div>
+        <div style={{marginBottom:"5px"}}>
           <h3>{props.nom}</h3>
           <p>Admin</p>
         </div>
 
         <div>
-          <button onClick={handleLogOutClick}>Log out</button>
+          <button onClick={() => setDeleteUserModal(true)} className="logout-btn">Se Déconnecter</button>
         </div>
       </div>
+
+      <Modal isOpen={deleteUserModal} className="outfit delete-user-moadal">
+        <h1>Vous Voulez Déconnecter ?</h1>
+        <div className="delete-user-btns">
+          <button onClick={() => handleLogOutClick()}>Oui</button>
+          <button onClick={() => setDeleteUserModal(false)}>Non</button>
+        </div>
+      </Modal>
     </nav>
   );
 }
